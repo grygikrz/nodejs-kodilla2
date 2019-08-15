@@ -1,11 +1,13 @@
 var os = require('os');
 var OSinfo = require('../modules/osModule');
+var TimeConv = require('../modules/timecon');
 
 process.stdin.setEncoding('utf-8');
 process.stdin.on('readable', function() {
     var input = process.stdin.read();
     if(input !== null) {
         var instruction = input.trim();
+	var uptime = TimeConv.conv(os.uptime());
         switch(instruction) {
                 case '/exit':
                     process.stdout.write('Quitting app!\n');
@@ -22,8 +24,8 @@ process.stdin.on('readable', function() {
                     console.log('CPU model:', cpu);
                 break;
                 case '/getUptimeinfo':
-                    var uptime = os.uptime();
-                    console.log('Uptime: ~', (uptime / 60).toFixed(0), 'min');
+         
+                    console.log('Uptime: ~', uptime);
                 break;
                 default:
                     process.stderr.write('Wrong instruction!\n');
